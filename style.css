@@ -219,7 +219,7 @@ body::-webkit-scrollbar{
 
 .char-card img {
     width: 100%;
-    border: 1px solid var(--border-dark);
+    border: 2px solid var(--border-dark);
     transition: 0.2s;
 }
 
