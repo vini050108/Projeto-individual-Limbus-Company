@@ -1,21 +1,3 @@
-@font-face {
-    font-family: 'Alumni';
-    src: url('../public/fonts/alumni/AlumniSans-SemiBold.ttf') format('truetype');
-    font-weight: 600;
-}
-
-@font-face {
-    font-family: 'Alumni';
-    src: url('../public/fonts/alumni/AlumniSans-Medium.ttf') format('truetype');
-    font-weight: 500;
-}
-
-@font-face {
-    font-family: 'Alumni';
-    src: url('../public/fonts/alumni/AlumniSans-Bold.ttf') format('truetype');
-    font-weight: bold;
-}
-
 
 :root {
     --primary-red: #8b0000;
@@ -27,7 +9,8 @@
     --O-color: rgba(255, 255, 255, 0.60);
     --OOO-frame-color: #FFBC3A;
     --OO-frame-color: #A83129;
-    --O-frame-color: #724501; /* Só LCB base usam */
+    --O-frame-color: #724501;
+    /* Só LCB base usam */
     --wrath-color: #f0d3af;
     --lust-color: #f0d3af;
     --sloth-color: #f0d3af;
@@ -83,14 +66,71 @@
 body {
     background: url('../../imgs/Sinners/sinnersBg.png') center/cover fixed;
     color: var(--text-light);
-    margin: 0;
 }
 
-a {
-  display: block;
-  height: 100%;
+
+.container {
+    background: rgba(15, 15, 15, 0.85);
+    border-left: 4px solid var(--primary-red);
+    border-right: 4px solid var(--primary-red);
+    backdrop-filter: blur(5px);
+
+    width: 60%;
+    margin: 40px auto;
+    padding: 20px;
 }
 
+
+.layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 20px;
+}
+
+
+.main {
+    text-align: left;
+}
+
+
+.main h1 {
+    margin-bottom: 10px;
+}
+
+.main h2 {
+    margin-top: 25px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--primary-red);
+    padding-bottom: 5px;
+}
+
+
+.main p {
+    line-height: 1.6;
+    margin-bottom: 10px;
+}
+
+.sidebar {
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid var(--border-dark);
+}
+
+
+.sidebar img {
+    width: 100%;
+    display: block;
+}
+
+
+.sidebar .info {
+    padding: 10px;
+    font-size: 14px;
+}
+
+.sidebar .info p {
+    border-bottom: 1px solid #333;
+    padding: 6px 0;
+}
 
 
 ::-webkit-scrollbar {
@@ -100,8 +140,4 @@ a {
 ::-webkit-scrollbar-thumb {
     background: #333;
     border-radius: 3px;
-}
-
-body::-webkit-scrollbar{
-    display: none;
 }
