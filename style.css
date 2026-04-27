@@ -8,7 +8,8 @@
     --O-color: rgba(255, 255, 255, 0.60);
     --OOO-frame-color: #FFBC3A;
     --OO-frame-color: #A83129;
-    --O-frame-color: #724501; /* Só LCB base usam */
+    --O-frame-color: #724501;
+    /* Só LCB base usam */
     --wrath-color: #f0d3af;
     --lust-color: #f0d3af;
     --sloth-color: #f0d3af;
@@ -67,8 +68,12 @@ body {
     margin: 0;
 }
 
-a div{
+a div {
     height: 100%;
+}
+
+a {
+    text-decoration: none;
 }
 
 
@@ -81,7 +86,7 @@ a div{
     border-radius: 3px;
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
     display: none;
 }
 
@@ -112,7 +117,7 @@ body::-webkit-scrollbar{
     padding: 4px;
 }
 
-.dashboard-container :visited{
+.dashboard-container :visited {
     color: #FFFFFF;
 }
 
@@ -122,7 +127,7 @@ body::-webkit-scrollbar{
 }
 
 .identities > div {
-    background:left/cover url(imgs/options/Faust-boom-boom.png) no-repeat;
+    background: left/cover url(imgs/options/Faust-boom-boom.png) no-repeat;
 }
 
 .ego {
@@ -158,7 +163,7 @@ body::-webkit-scrollbar{
 }
 
 .season > div {
-    background:right/cover url(./imgs/options/Kumo-no-ito.png) no-repeat;
+    background: right/cover url(./imgs/options/Kumo-no-ito.png) no-repeat;
 }
 
 .mirror {
@@ -167,7 +172,7 @@ body::-webkit-scrollbar{
 }
 
 .mirror > div {
-    background:left/cover url(./imgs/options/MDE.png) no-repeat;
+    background: left/cover url(./imgs/options/MDE.png) no-repeat;
 }
 
 .banners {
@@ -176,12 +181,16 @@ body::-webkit-scrollbar{
 }
 
 .banners > div {
-    background: url(./imgs/options/BURN-THOSE-VERMIN-LIKE.png);
+    background:left/cover url(./imgs/options/BURN-THOSE-VERMIN-LIKE.png);
 }
 
 .characters {
     grid-column: 4;
     grid-row: 2 / 4;
+}
+
+.characters > div {
+    background:left/cover url(./imgs/options/sinnerlings.png);
 }
 
 .box {
