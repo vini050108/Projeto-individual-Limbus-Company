@@ -145,6 +145,7 @@ body {
 .sidebar {
     background: rgba(20, 20, 20, 0.95);
     border: 2px solid var(--primary-red);
+    height: 650px;
 }
 
 
@@ -175,4 +176,12 @@ body {
 
 body::-webkit-scrollbar{
     display: none;
+}
+
+.YiSang{
+    color: #d4dfe8;
+}
+
+.Faust{
+    color: #ffbfb4
 }
