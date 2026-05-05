@@ -56,7 +56,27 @@
     font-size: 16px;
 }
 
+@font-face {
+    font-family: 'LCB';
+    src: url('./assets/tagmarker.ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
 
+@font-face {
+    font-family: LcM;
+    src: url('./assets/ExcelsiorSans.ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+.title {
+
+    font-family: 'LcM', sans-serif;
+    letter-spacing: 0.1em;
+}
 
 * {
     font-family: 'Alumni', sans-serif;
@@ -74,6 +94,7 @@ a div {
 
 a {
     text-decoration: none;
+    color: inherit;
 }
 
 
@@ -126,7 +147,7 @@ body::-webkit-scrollbar {
     grid-row: 1 / 3;
 }
 
-.identities > div {
+.identities>div {
     background: left/cover url(imgs/options/Faust-boom-boom.png) no-repeat;
 }
 
@@ -135,7 +156,7 @@ body::-webkit-scrollbar {
     grid-row: 3;
 }
 
-.ego > div {
+.ego>div {
     background: right/cover url(imgs/options/rodya-ego.png);
 }
 
@@ -144,7 +165,7 @@ body::-webkit-scrollbar {
     grid-row: 1;
 }
 
-.abno > div {
+.abno>div {
     background: center/cover url(./imgs/options/fell-bullet.png);
 }
 
@@ -153,7 +174,7 @@ body::-webkit-scrollbar {
     grid-row: 1;
 }
 
-.enemies > div {
+.enemies>div {
     background: center/cover url(./imgs/options/peccatulla.png);
 }
 
@@ -162,7 +183,7 @@ body::-webkit-scrollbar {
     grid-row: 1;
 }
 
-.season > div {
+.season>div {
     background: right/cover url(./imgs/options/Kumo-no-ito.png) no-repeat;
 }
 
@@ -171,7 +192,7 @@ body::-webkit-scrollbar {
     grid-row: 2;
 }
 
-.mirror > div {
+.mirror>div {
     background: left/cover url(./imgs/options/MDE.png) no-repeat;
 }
 
@@ -180,8 +201,8 @@ body::-webkit-scrollbar {
     grid-row: 3;
 }
 
-.banners > div {
-    background:left/cover url(./imgs/options/BURN-THOSE-VERMIN-LIKE.png);
+.banners>div {
+    background: left/cover url(./imgs/options/BURN-THOSE-VERMIN-LIKE.png);
 }
 
 .characters {
@@ -189,8 +210,8 @@ body::-webkit-scrollbar {
     grid-row: 2 / 4;
 }
 
-.characters > div {
-    background:left/cover url(./imgs/options/sinnerlings.png);
+.characters>div {
+    background: left/cover url(./imgs/options/sinnerlings.png);
 }
 
 .box {
