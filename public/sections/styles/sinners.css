@@ -120,6 +120,15 @@ body {
     text-align: left;
 }
 
+/* .main p {
+    display: inline;
+    padding: 50px;
+} */
+
+.censored{
+    filter: blur(5px)
+}
+
 .main img {
     display: block;
     width: 35px;
