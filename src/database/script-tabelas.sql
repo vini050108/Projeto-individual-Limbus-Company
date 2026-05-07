@@ -61,9 +61,11 @@
 -- insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
 -- insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
 
+CREATE DATABASE limbus_company
+
 CREATE TABLE usuario (
 	id INT PRIMARY KEY AUTO_INCREMENT,
 	nome VARCHAR(50),
 	email VARCHAR(50),
 	senha VARCHAR(50)
-)
+);
