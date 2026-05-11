@@ -16,7 +16,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
 </head>
 
-<body id="sign-up/login">
+<body id="sign-up/login" onload="randomBg()">
+    <video id="bg-video" autoplay muted loop playsinline>
+        <source src="" type="video/webm">
+    </video>
 
     <!--Header-->
 
@@ -86,6 +89,32 @@
 </html>
 
 <script>
+    const backgrounds = ['../../imgs/main-sinners/Don_Quixote/Identities/Cinq-East/Uptie III Animation.webm',
+        '../../imgs/main-sinners/Faust/Identities/ADE/Uptie III Animation A.webm',
+        '../../imgs/main-sinners/Outis/Identities/MagicBullet/Uptie III Animation (1).webm'
+    ]
+    function randomBg() {
+        const current = Math.floor(Math.random() * backgrounds.length);
+        const picked = backgrounds[current];
+
+        const video = document.getElementById('bg-video');
+        video.querySelector('source').src = picked;
+
+        video.load();
+
+        if (current == 0) {
+            document.documentElement.style.setProperty('--primary-red', '#4a83ce');
+            document.querySelector('.titulo').style.color = '#4a83ce';
+        }
+        if (current == 1) {
+            document.documentElement.style.setProperty('--primary-red', '#fcab57');
+            document.querySelector('.titulo').style.color = '#fcab57';
+        }
+        if (current == 2) {
+            document.documentElement.style.setProperty('--primary-red', '#182455');
+            document.querySelector('.titulo').style.color = '#182455';
+        }
+    }
 
 
     function entrar() {
