@@ -62,7 +62,7 @@
     font-family: 'Alumni', sans-serif;
 }
 
-.navbar {
+/* .navbar {
     display: flex;
     background: rgba(15, 15, 15, 0.85);
     border-left: 4px solid var(--primary-red);
@@ -76,19 +76,9 @@
     color: white;
     padding-top: 20px;
     flex-direction: column;
-}
+} */
 
 
-.nav-links {
-    display: flex;
-    list-style: none;
-    gap: 15px;
-}
-
-.nav-links a {
-    text-decoration: none;
-    color: white;
-}
 
 
 body {
@@ -125,7 +115,7 @@ body {
     padding: 50px;
 } */
 
-.censored{
+.censored {
     filter: blur(5px)
 }
 
@@ -174,6 +164,8 @@ body {
 }
 
 
+
+
 ::-webkit-scrollbar {
     width: 6px;
 }
@@ -183,54 +175,118 @@ body {
     border-radius: 3px;
 }
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
     display: none;
 }
 
-.YiSang{
+.YiSang {
     color: #d4dfe8;
 }
 
-.Faust{
+.Faust {
     color: #ffbfb4
 }
 
-.Don{
+.Don {
     color: #FFEF23
 }
 
-.Ryoshu{
+.Ryoshu {
     color: #cf0000
 }
 
-.Meursault{
+.Meursault {
     color: #293b95
 }
 
-.HongLu{
+.HongLu {
     color: #5BFFDE;
 }
 
-.Heathcliff{
+.Heathcliff {
     color: #4e3076
 }
 
-.Ishmael{
+.Ishmael {
     color: #ff9500;
 }
 
-.Rodion{
+.Rodion {
     color: #820000;
 }
 
-.Sinclair{
+.Sinclair {
     color: #8b9c15;
 }
 
-.Outis{
+.Outis {
     color: #325339;
 }
 
-.Gregor{
+.Gregor {
     color: #69350b
+}
+
+.header {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.header .container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px 40px;
+    background: rgba(10, 10, 10, 0.72);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--primary-red);
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navbar li {
+    color: rgba(255, 255, 255, 0.75);
+    font-family: 'LcM', sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.navbar li:hover {
+    color: white;
+    text-shadow:
+    0 0 10px rgba(255, 255, 255, 0.35);
+}
+
+.navbar a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.navbar .agora {
+    color: white;
+    position: relative;
+}
+
+.navbar .agora::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    width: 100%;
+    height: 2px;
+    background: var(--primary-red);
 }
