@@ -66,6 +66,19 @@ body {
     
 }
 
+h2 {
+    color: var(--primary-red)
+}
+
+input {
+    margin: 10px;
+}
+
+.container {
+    padding: 10px;
+    padding-bottom: 0px;
+}
+
 #bg-video {
     position: fixed;
     top: 0;
