@@ -9,7 +9,6 @@
     --OOO-frame-color: #FFBC3A;
     --OO-frame-color: #A83129;
     --O-frame-color: #724501;
-    /* Só LCB base usam */
     --wrath-color: #f0d3af;
     --lust-color: #f0d3af;
     --sloth-color: #f0d3af;
@@ -56,18 +55,18 @@
     font-size: 16px;
 }
 
-
 body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: fixed;
     overflow: hidden;
-    
+    margin: 0;
+    font-family: sans-serif;
 }
 
 h2 {
-    color: var(--primary-red)
+    color: var(--primary-red);
 }
 
 input {
@@ -86,58 +85,87 @@ input {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: -1;
+    z-index: -2;
 }
 
 .login {
     min-height: 100vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
+
+    /* justify-content: flex-end; */
+    justify-content: flex-start;
+
+    align-items: stretch;
+    position: relative;
+}
+
+.login::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.78) 0%,
+        rgba(0, 0, 0, 0.45) 25%,
+        rgba(0, 0, 0, 0.15) 55%,
+        rgba(0, 0, 0, 0.04) 100%
+    );
+
 }
 
 .login .container {
-    width: 450px;
+    width: 480px;
+    min-height: 100vh;
 
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
 
-    background: rgba(10, 10, 10, 0.78);
-    border-top: 4px solid var(--primary-red);
-    border-left: 4px solid var(--primary-red);
-    border-right: 4px solid var(--primary-red);
+    position: relative;
+    z-index: 2;
+
+    background: linear-gradient(
+        180deg,
+        rgba(10, 10, 10, 0.70),
+        rgba(0, 0, 0, 0.45)
+    );
+
+    border-right: 2px solid var(--primary-red);
+
+    /* border-left: 2px solid rgba(139, 0, 0, 0.4); */
 
     backdrop-filter: blur(8px);
 
     box-shadow:
-        0 0 30px rgba(0,0,0,0.65),
-        0 0 10px rgba(139, 0, 0, 0.3);
+        20px 0 40px rgba(0, 0, 0, 0.45),
+        0 0 20px color-mix(in srgb, var(--primary-red) 20%, transparent);
 }
 
 .card-cadastro {
     width: 100%;
+    padding: 40px;
 }
 
 .card-cadastro h2 {
     color: white;
-    font-size: 2.4rem;
+    font-size: 3rem;
     letter-spacing: 0.08em;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
     text-transform: uppercase;
 }
 
 .formulario {
     display: flex;
     flex-direction: column;
-    gap: 18px;
+    gap: 20px;
 }
 
 .campo {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 8px;
     text-align: left;
 }
 
@@ -149,19 +177,20 @@ input {
 }
 
 .campo input {
-    height: 42px;
-    padding: 0 12px;
-    border: 1px solid #3b3b3b;
-    background: rgba(0,0,0,0.55);
+    height: 50px;
+    padding: 0 14px;
+    border: 1px solid rgba(255,255,255,0.08);
+    background: rgba(255,255,255,0.03);
     color: white;
     outline: none;
-    transition: 0.2s;
+    transition: 0.25s;
+    border-radius: 4px;
 }
 
 .campo input:focus {
     border-color: var(--primary-red);
-    box-shadow:
-    0 0 8px rgba(139,0,0,0.4);
+    box-shadow: 0 0 12px rgba(139,0,0,0.35);
+    background: rgba(255,255,255,0.05);
 }
 
 .campo input::placeholder {
@@ -169,16 +198,21 @@ input {
 }
 
 .botao {
-    margin-top: 10px;
+    margin-top: 18px;
+    height: 52px;
     border: none;
+
     background: var(--primary-red);
+
     color: white;
     font-family: 'LcM', sans-serif;
     font-size: 20px;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
     cursor: pointer;
-    transition: 0.2s;
+    transition: 0.25s;
 }
+
+
 
 .header {
     width: 100%;
@@ -220,33 +254,25 @@ input {
 
 .navbar li:hover {
     color: white;
-
-    text-shadow:
-        0 0 10px rgba(255,255,255,0.35);
+    text-shadow: 0 0 10px rgba(255,255,255,0.35);
 }
 
 .navbar a {
     text-decoration: none;
-
     color: inherit;
 }
 
 .navbar .agora {
     color: white;
-
     position: relative;
 }
 
 .navbar .agora::after {
     content: "";
-
     position: absolute;
-
     left: 0;
     bottom: -6px;
-
     width: 100%;
     height: 2px;
-
     background: var(--primary-red);
 }

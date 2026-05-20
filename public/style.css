@@ -111,7 +111,6 @@ a {
 body::-webkit-scrollbar {
     display: none;
 }
-
 .container {
     background: rgba(15, 15, 15, 0.85);
     border-left: 4px solid var(--primary-red);
@@ -120,9 +119,8 @@ body::-webkit-scrollbar {
     padding: 20px;
     width: 60%;
     text-align: center;
-    margin: 0 auto;
+    margin: 80px auto 0;
 }
-
 .generic-border {
     border: 4px solid var(--primary-red);
 }
@@ -284,7 +282,7 @@ body::-webkit-scrollbar {
     border-color: var(--O-frame-color);
 }
 
-.header2 {
+.header {
     width: 100%;
     position: fixed;
     top: 0;
@@ -292,7 +290,7 @@ body::-webkit-scrollbar {
     z-index: 1000;
 }
 
-.headerNav .container2 {
+.header .container2 {
     width: 100%;
     display: flex;
     justify-content: space-between;
