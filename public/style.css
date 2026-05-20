@@ -284,7 +284,7 @@ body::-webkit-scrollbar {
     border-color: var(--O-frame-color);
 }
 
-.headerNav {
+.header2 {
     width: 100%;
     position: fixed;
     top: 0;
@@ -292,7 +292,7 @@ body::-webkit-scrollbar {
     z-index: 1000;
 }
 
-.headerNav .container {
+.headerNav .container2 {
     width: 100%;
     display: flex;
     justify-content: space-between;
