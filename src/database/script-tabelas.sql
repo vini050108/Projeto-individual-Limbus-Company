@@ -67,40 +67,31 @@ create database limbus_company;
 use limbus_company;
 
 CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-	senha VARCHAR(50)
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nome VARCHAR(50),
+  email VARCHAR(50),
+  senha VARCHAR(50)
 );
 
-CREATE TABLE Sinners (
+CREATE TABLE sinners (
   sinner_id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(50) NOT NULL UNIQUE
 );
 
-INSERT INTO Sinners (name) VALUES
-('Yi Sang'),
-('Faust'),
-('Don Quixote'),
-('Ryōshū'),
-('Meursault'),
-('Hong Lu'),
-('Heathcliff'),
-('Ishmael'),
-('Rodion'),
-('Sinclair'),
-('Outis'),
-('Gregor');
+INSERT INTO sinners (name) VALUES
+('Yi Sang'), ('Faust'), ('Don Quixote'), ('Ryōshū'),
+('Meursault'), ('Hong Lu'), ('Heathcliff'), ('Ishmael'),
+('Rodion'), ('Sinclair'), ('Outis'), ('Gregor');
 
-CREATE TABLE Identities (
+CREATE TABLE identities (
   identity_id INT AUTO_INCREMENT PRIMARY KEY,
   name VARCHAR(100) NOT NULL,
   sinner_id INT NOT NULL,
   UNIQUE(name),
-  FOREIGN KEY (sinner_id) REFERENCES Sinners(sinner_id)
+  FOREIGN KEY (sinner_id) REFERENCES sinners(sinner_id)
 );
 
-INSERT INTO Identities (name, sinner_id) VALUES
+INSERT INTO identities (name, sinner_id) VALUES
 ('LCB Sinner Yi Sang', 1),
 ('Seven Assoc. South Section 6 Yi Sang', 1),
 ('Molar Office Fixer Yi Sang', 1),
@@ -183,7 +174,7 @@ INSERT INTO Identities (name, sinner_id) VALUES
 ('Rosespanner Workshop Rep. Rodion', 9),
 ('Dieci Assoc. South Section 4 Rodion', 9),
 ('Liu Assoc. South Section 4 Director Rodion', 9),
-('Devyat’ Assoc. North Section 3 Rodion', 9),
+('Devyat'' Assoc. North Section 3 Rodion', 9),
 ('Lobotomy E.G.O::The Sword Sharpened With Tears Rodion', 9),
 ('LCB Sinner Sinclair', 10),
 ('Zwei Assoc. South Section 6 Sinclair', 10),
@@ -194,7 +185,7 @@ INSERT INTO Identities (name, sinner_id) VALUES
 ('The One Who Shall Grip Sinclair', 10),
 ('Cinq Assoc. South Section 4 Director Sinclair', 10),
 ('Dawn Office Fixer Sinclair', 10),
-('Devyat’ Assoc. North Section 3 Sinclair', 10),
+('Devyat'' Assoc. North Section 3 Sinclair', 10),
 ('LCB Sinner Outis', 11),
 ('Blade Lineage Salsu Outis', 11),
 ('G Corp. Head Manager Outis', 11),
@@ -216,17 +207,17 @@ INSERT INTO Identities (name, sinner_id) VALUES
 ('Edgar Family Heir Gregor', 12),
 ('Kurokumo Clan Captain Gregor', 12);
 
-CREATE TABLE Skills (
+CREATE TABLE skills (
     skill_id INT AUTO_INCREMENT PRIMARY KEY,
     identity_id INT NOT NULL,
-    base1 INT NOT NULL, coin1 INT NOT NULL, amt1 INT NOT NULL, 
+    base1 INT NOT NULL, coin1 INT NOT NULL, amt1 INT NOT NULL,
     type1 VARCHAR(100), sin1 VARCHAR(100),
-    base2 INT NOT NULL, coin2 INT NOT NULL, amt2 INT NOT NULL, 
+    base2 INT NOT NULL, coin2 INT NOT NULL, amt2 INT NOT NULL,
     type2 VARCHAR(100), sin2 VARCHAR(100),
-    base3 INT NOT NULL, coin3 INT NOT NULL, amt3 INT NOT NULL, 
+    base3 INT NOT NULL, coin3 INT NOT NULL, amt3 INT NOT NULL,
     type3 VARCHAR(100), sin3 VARCHAR(100),
     facade INT NOT NULL DEFAULT 0,
-    FOREIGN KEY (identity_id) REFERENCES Identities(identity_id) 
+    FOREIGN KEY (identity_id) REFERENCES identities(identity_id)
 );
 
 INSERT INTO Skills (identity_id, 
@@ -529,6 +520,14 @@ INSERT INTO Skills (identity_id,
             base1, coin1, amt1, type1, sin1,
             base2, coin2, amt2, type2, sin2,
             base3, coin3, amt3, type3, sin3)
+            VALUES (67, 
+            3, 4, 2, 'Flying Sword', 'Envy',
+            5, 4, 2, 'Flashing Strike', 'Lust',
+            1, 6, 2, 'Catch Breath', 'Wrath');
+INSERT INTO Skills (identity_id, 
+            base1, coin1, amt1, type1, sin1,
+            base2, coin2, amt2, type2, sin2,
+            base3, coin3, amt3, type3, sin3)
             VALUES (71, 
             4, 5, 2, 'Mind Strike', 'Gloom',
             6, 12, 1, 'Flaying Surge', 'Envy',
@@ -661,50 +660,54 @@ INSERT INTO Skills (identity_id,
             5, 5, 1, 'Lenticular Rend', 'Sloth',
             5, 5, 2, 'Shadow Cloud', 'Lust',
             4, 3, 3, 'Shadowcloud Shattercleave', 'Gloom');
-            
-UPDATE Skills sk
-JOIN Identities i ON sk.identity_id = i.identity_id
-JOIN Sinners s ON i.sinner_id = s.sinner_id
+UPDATE skills sk
+JOIN identities i ON sk.identity_id = i.identity_id
+JOIN sinners s ON i.sinner_id = s.sinner_id
 SET sk.facade = s.sinner_id;
 
 SELECT sk.skill_id, s.name, sk.facade
-FROM Skills sk
-JOIN Identities i ON sk.identity_id = i.identity_id
-JOIN Sinners s ON i.sinner_id = s.sinner_id
+FROM skills sk
+JOIN identities i ON sk.identity_id = i.identity_id
+JOIN sinners s ON i.sinner_id = s.sinner_id
 ORDER BY sk.facade, sk.skill_id;
 
-select * from identities;
+SELECT * FROM identities;
 
 CREATE TABLE usuario_identity (
     usuario_id INT NOT NULL,
     identity_id INT NOT NULL,
     PRIMARY KEY (usuario_id, identity_id),
-    FOREIGN KEY (usuario_id) REFERENCES usuario(id) ,
-    FOREIGN KEY (identity_id) REFERENCES Identities(identity_id)
+    FOREIGN KEY (usuario_id) REFERENCES usuario(id),
+    FOREIGN KEY (identity_id) REFERENCES identities(identity_id)
 );
-
 
 INSERT INTO usuario (id, nome, email, senha)
 VALUES (1, 'Vin', 'email@email.com', 'senha123');
 
 INSERT INTO usuario_identity (usuario_id, identity_id)
-VALUES (1, 114),
-		(1,67);
-        
+VALUES (1, 114), (1, 67);
+
 SELECT * FROM usuario_identity WHERE usuario_id = 1;
-        
+
 SELECT
-    u.id AS usuario_id,
-    u.nome,
-    i.identity_id,
-    i.name AS identity_name,
+    u.id AS usuario_id, u.nome,
+    i.identity_id, i.name AS identity_name,
     s.name AS sinner_name,
     sk.base1, sk.coin1, sk.amt1, sk.type1, sk.sin1,
     sk.base2, sk.coin2, sk.amt2, sk.type2, sk.sin2,
     sk.base3, sk.coin3, sk.amt3, sk.type3, sk.sin3
 FROM usuario u
 JOIN usuario_identity ui ON u.id = ui.usuario_id
-JOIN Identities i ON ui.identity_id = i.identity_id
-JOIN Sinners s ON i.sinner_id = s.sinner_id
-LEFT JOIN Skills sk ON sk.identity_id = i.identity_id WHERE u.id = 1;
+JOIN identities i ON ui.identity_id = i.identity_id
+JOIN sinners s ON i.sinner_id = s.sinner_id
+LEFT JOIN skills sk ON sk.identity_id = i.identity_id
+WHERE u.id = 1;
 
+SELECT * FROM usuario;
+
+SELECT s.name, COUNT(ui.identity_id) AS total
+FROM usuario_identity ui
+JOIN identities i ON ui.identity_id = i.identity_id
+JOIN sinners s ON i.sinner_id = s.sinner_id
+WHERE ui.usuario_id = 1
+GROUP BY s.name;
