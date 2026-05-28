@@ -44,11 +44,11 @@
   <!--header fim-->
 
   <div class="login">
-    <div class="alerta_erro">
+    <!-- <div class="alerta_erro">
       <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
-      </div>
-    </div>
+        <span id="mensagem_erro"></span> -->
+      <!-- </div>
+    </div> -->
     <div class="container">
       <div class="card card-cadastro">
         <h2>Bem-vindo!</h2>
@@ -77,13 +77,13 @@
             <span>Confirmação da Senha:</span>
             <input id="confirmacao_senha_input" type="password" placeholder="******" />
           </div>
+          <div class="error" id="mensagem_erro"></div>
           <button class="botao" onclick="cadastrar()">Cadastrar</button>
         </div>
         <!-- <div id="div_aguardar" class="loading-div">
         <img src="./assets/circle-loading.gif" id="loading-gif" />
       </div> -->
 
-        <div id="div_erros_login"></div>
       </div>
     </div>
   </div>
@@ -154,9 +154,8 @@
       confirmacaoSenhaVar == ""
       // || codigoVar == ""
     ) {
-      cardErro.style.display = "block";
       mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+        "Preencha todos os campos";
 
       finalizarAguardar();
       return false;
@@ -165,9 +164,9 @@
     }
 
     if (senhaVar != confirmacaoSenhaVar) {
-      cardErro.style.display = "block";
+
       mensagem_erro.innerHTML =
-        "(Mensagem de erro para senhas diferentes)";
+        "senhas diferentes";
 
       finalizarAguardar();
       return false;
