@@ -1,7 +1,7 @@
 const database = require('../database/config')
 
 function buscarPorSinner(sinner_id) {
-  const instrucaoSql = `SELECT * FROM Identities i WHERE i.sinner_id = ${sinner_id} AND NOT EXISTS ( SELECT 1 FROM usuario_identity ui WHERE ui.identity_id = i.identity_id );`
+  const instrucaoSql = `SELECT * FROM identities i WHERE i.sinner_id = ${sinner_id} AND NOT EXISTS ( SELECT 1 FROM usuario_identity ui WHERE ui.identity_id = i.identity_id );`
   return database.executar(instrucaoSql)
 }
 
@@ -14,7 +14,7 @@ function buscarGrafico(usuario_id) {
   const instrucaoSql = `
     SELECT s.name, COUNT(ui.identity_id) as total
     FROM usuario_identity ui
-    JOIN Identities i ON ui.identity_id = i.identity_id
+    JOIN identities i ON ui.identity_id = i.identity_id
     JOIN sinners s ON i.sinner_id = s.sinner_id
     WHERE ui.usuario_id = ${usuario_id}
     GROUP BY s.name
@@ -26,7 +26,7 @@ function buscarDoUsuario(usuario_id) {
   const instrucaoSql = `
     SELECT i.identity_id, i.name, s.name as sinner_name
     FROM usuario_identity ui
-    JOIN Identities i ON ui.identity_id = i.identity_id
+    JOIN identities i ON ui.identity_id = i.identity_id
     JOIN sinners s ON i.sinner_id = s.sinner_id
     JOIN skills sk ON sk.identity_id = i.identity_id
     WHERE ui.usuario_id = ${usuario_id}
@@ -39,4 +39,4 @@ function buscarSkills(identity_id) {
   return database.executar(instrucaoSql)
 }
 
-module.exports = { buscarPorSinner, cadastrarIdentity, buscarGrafico, buscarDoUsuario, buscarSkills }
+mo
