@@ -38,3 +38,5 @@ function buscarSkills(identity_id) {
   const instrucaoSql = `SELECT * FROM skills WHERE identity_id = ${identity_id}`
   return database.executar(instrucaoSql)
 }
+
+module.exports = { buscarPorSinner, cadastrarIdentity, buscarGrafico, buscarDoUsuario, buscarSkills }
