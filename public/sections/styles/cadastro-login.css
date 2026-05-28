@@ -122,25 +122,11 @@ input {
     justify-content: center;
     align-items: center;
     text-align: center;
-
     position: relative;
     z-index: 2;
-
-    background: linear-gradient(
-        180deg,
-        rgba(10, 10, 10, 0.70),
-        rgba(0, 0, 0, 0.45)
-    );
-
     border-right: 2px solid var(--primary-red);
-
-    /* border-left: 2px solid rgba(139, 0, 0, 0.4); */
-
     backdrop-filter: blur(8px);
 
-    box-shadow:
-        20px 0 40px rgba(0, 0, 0, 0.45),
-        0 0 20px color-mix(in srgb, var(--primary-red) 20%, transparent);
 }
 
 .card-cadastro {
@@ -170,7 +156,7 @@ input {
 }
 
 .campo span {
-    color: rgba(255,255,255,0.85);
+    color: rgba(255,255,255,1);
     font-size: 1rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
@@ -181,20 +167,13 @@ input {
     padding: 0 14px;
     border: 1px solid rgba(255,255,255,0.08);
     background: rgba(255,255,255,0.03);
-    color: white;
-    outline: none;
-    transition: 0.25s;
     border-radius: 4px;
 }
 
 .campo input:focus {
     border-color: var(--primary-red);
-    box-shadow: 0 0 12px rgba(139,0,0,0.35);
+    box-shadow: 0 0 12px var(--primary-red);
     background: rgba(255,255,255,0.05);
-}
-
-.campo input::placeholder {
-    color: rgba(255,255,255,0.35);
 }
 
 .botao {
@@ -208,8 +187,8 @@ input {
     font-family: 'LcM', sans-serif;
     font-size: 20px;
     letter-spacing: 1px;
-    cursor: pointer;
     transition: 0.25s;
+    border-radius: 4px;
 }
 
 

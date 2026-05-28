@@ -150,6 +150,14 @@ body::-webkit-scrollbar {
     background: left/cover url(imgs/options/Faust-boom-boom.png) no-repeat;
 }
 
+.box{
+    transition: all 250ms;
+}
+
+.box:hover{
+    filter: saturate(1.5);
+}
+
 .ego {
     grid-column: 1;
     grid-row: 3;
@@ -351,4 +359,8 @@ body::-webkit-scrollbar {
     height: 2px;
 
     background: var(--primary-red);
+}
+
+.label:hover {
+    color: var(--season-s-6-color);
 }

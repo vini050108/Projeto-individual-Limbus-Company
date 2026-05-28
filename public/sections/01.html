@@ -7,6 +7,7 @@
   <title>Yi sang</title>
   <link rel="stylesheet" href="styles/sinners.css">
   <link rel="shortcut icon" href="../imgs/main-sinners/Yi_sang/Yi_Sang_Icon.png" type="image/x-icon">
+  
 </head>
 
 <body>
@@ -15,17 +16,17 @@
       <h1 class="titulo">Limbus Company</h1>
       <ul class="navbar">
         <li>
-          <a href="index.html">Inicial</a>
+          <a href="../index.html">Inicial</a>
         </li>
         <li>
-          <a href="simulador.html">Simulador</a>
+          <a href="../dashboard/dash.html">Simulador</a>
         </li>
         <li>|</li>
-        <li>
-          <a href="login.html">Login</a>
-        </li>
-        <li class="agora">
-          <a href="#">Cadastro</a>
+        <li id="nav-login"><a href="../login.html">Login</a></li>
+        <li id="nav-cadastro"><a href="../cadastro.html">Cadastro</a></li>
+        <li id="nav-usuario" style="display:none">
+          <span id="nav-nome"></span>
+          <button onclick="sair()">Sair</button>
         </li>
       </ul>
     </div>
@@ -67,3 +68,5 @@
 </body>
 
 </html>
+<script src="../js/sessao.js"></script>
+<script>checkSession()</script>

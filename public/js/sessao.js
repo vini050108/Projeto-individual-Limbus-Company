@@ -34,3 +34,22 @@ function finalizarAguardar(texto) {
     }
 }
 
+function checkSession() {
+  const nome = sessionStorage.NOME_USUARIO
+
+  if (nome) {
+    const navNome = document.getElementById('nav-nome')
+    const navUsuario = document.getElementById('nav-usuario')
+    const navLogin = document.getElementById('nav-login')
+    const navCadastro = document.getElementById('nav-cadastro')
+
+    if (navNome) navNome.innerHTML = nome
+    if (navUsuario) navUsuario.style.display = 'block'
+    if (navLogin) navLogin.style.display = 'none'
+    if (navCadastro) navCadastro.style.display = 'none'
+  }
+}
+function sair() {
+  sessionStorage.clear()
+  window.location = '../login.html'
+}

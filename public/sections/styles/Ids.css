@@ -302,3 +302,9 @@ a {
 .ooo {
     color: var(--OOO-frame-color);
 }
+
+.s7 {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}

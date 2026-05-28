@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dashboard.css">
+</head>
+
+<body class="bigB">
+<div class="header">
+    <div class="container">
+      <h1 class="titulo">Limbus Company</h1>
+      <ul class="navbar">
+        <li><a href="../index.html">Inicial</a></li>
+        <li><a href="./dash.html">Simulador</a></li>
+        <li>|</li>
+        <li id="nav-login"><a href="../login.html">Login</a></li>
+        <li id="nav-cadastro"><a href="../cadastro.html">Cadastro</a></li>
+        <li id="nav-usuario" style="display:none">
+          <span id="nav-nome"></span>
+          <button onclick="sair()">Sair</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+<div class="container">
+    <h1>The Big Brother's Trial.</h1>
+    <hr>
+<audio id="bg-music" loop>
+    <source src="../assets/BB/Middle-Finger-Toujou.mp3">
+</audio>
+<button id="music-btn" onclick="document.getElementById('bg-music').play()">▶</button>
+    <img class="ricardoDialogue"
+        src="https://static.wikia.nocookie.net/limbuscompany/images/a/ae/Ricardo_StoryLog.png/revision/latest?cb=20231123093749"
+        alt="Ricardo">
+
+    <p class="dialogue">“Então você quer enfrentar o Big Brother? Hah… Primeiro aprende como essa cidade decide quem vive e quem apodrece no chão.”</p>
+    <p class="dialogue">“Toda habilidade possui um <span>Base Power</span>. Esse é o peso do golpe. A força pura. O impacto antes da moeda sequer girar.”</p>
+    <p class="dialogue">“Depois vêm as moedas.”</p>
+    <p class="dialogue">“Cada moeda pode cair em cara ou coroa. Quando cai em cara, o ataque recebe o <span>Coin Power</span>. Quanto mais caras, mais brutal o golpe fica.”</p>
+    <p class="dialogue">“Uma skill com Base Power 10 e Coin Power +12 não termina sempre igual.”</p>
+    <img class="showcase" src="https://i.imgur.com/psEFfQY.png" alt="">
+    <p class="dialogue">“Se tudo der errado? 10. Uma cara? 22.”</p>
+    <p class="dialogue">“E o dano? Hah... simples... Cada moeda da dano igual ao Base power + coin power caso a moeda seja cara, e esse valor se torna o base para a moeda que vem a segur.”</p>
+    <img class="showcase" src="https://i.imgur.com/BAYfNTb.png" alt=""> <img class="showcase" src="https://i.imgur.com/4IWtE3E.png" alt=""> <img class="showcase" src="https://i.imgur.com/HVrQpDm.png" alt=""> <img class="showcase" src="https://i.imgur.com/kkCKwkj.png" alt="">
+    <p class="dialogue">“E sabe o que decide isso?”</p>
+    <p class="dialogue">“Sanidade.”</p>
+    <p class="dialogue">“Quando sua mente está firme, suas moedas obedecem. 0 SP significa 50% de chance. 45 SP? Suas moedas praticamente imploram para cair em cara.”</p>
+    <p class="dialogue">“Mas quando o medo entra na sua cabeça… tudo começa a cair em coroa.”</p>
+    <p class="dialogue">“Você perde clashes. Sua Sanidade despenca. Suas moedas falham. E então você afunda.”</p>
+    <p class="dialogue">“É assim que os fracos morrem.”</p>
+    <p class="dialogue">“Agora venha.”</p>
+    <hr>
+    <h2><p class="dialogue">“Vamos descobrir se sua coragem vale mais que minhas moedas.”</p></h2>
+    <hr>
+    <p p class="dialogue">Para "clashar" com o [The middle Big Brother] Ricardo, qual skill você deve utilizar? para esse teste, todas as moedas serão cara</p>
+    <img class="showcase" src="https://i.imgur.com/JDmiVMs.png" alt="">
+    <p></p>
+<select id="minhas-ids" onchange="loadSkills(this.value)">
+</select>
+<div id="skills-buttons"></div>
+<p></p>
+<div class="dialogue" id="resultado"></div>
+    <script src="../js/sessao.js"></script>
+    <script>checkSession()</script>
+</div>
+</body>
+</html>
+<script>
+  if (!sessionStorage.NOME_USUARIO) {
+  window.location = '../login.html'
+}
+checkSession()
+async function loadIds() {
+  const usuario_id = sessionStorage.ID_USUARIO
+  const data = await fetch(`/api/minhas-identities/${usuario_id}`).then(r => r.json())
+
+  const select = document.getElementById('minhas-ids')
+  select.innerHTML = '<option value="">Suas identidades</option>'
+
+  data.forEach(item => {
+    select.innerHTML += `<option value="${item.identity_id}">${item.sinner_name} - ${item.name}</option>`
+  })
+}
+
+loadIds()
+
+function calculate(base, coin, amount) {
+  const result = document.getElementById('resultado')
+
+  let finalPower = base
+  for (let i = 0; i < amount; i++) {
+    finalPower += coin
+  }
+
+  if (finalPower < 33) {
+    result.innerHTML = `"Hah… então era só isso? Suas moedas nem conseguiram me tocar.<br><br>
+    Final Power: ${finalPower} — Vitória do Big Brother."`
+  } else if (finalPower > 33) {
+    result.innerHTML = `"Tch… então suas moedas realmente conseguiram me derrubar desta vez.<br><br>
+    Final Power: ${finalPower} — Derrota do Big Brother."`
+  } else {
+    result.innerHTML = `"Nem você caiu… nem eu.<br><br>
+    Final Power: ${finalPower} — Empate."`
+  }
+}
+
+async function loadSkills(identity_id) {
+  const div = document.getElementById('skills-buttons')
+  div.innerHTML = ''
+
+  if (!identity_id) return
+
+  const response = await fetch(`/api/skills/${identity_id}`)
+  const data = await response.json()
+
+  const skill = data[0]
+  if (!skill) return
+
+  const s1 = { name: skill.type1, base: skill.base1, coin: skill.coin1, amount: skill.amt1, sin: skill.sin1 }
+  const s2 = { name: skill.type2, base: skill.base2, coin: skill.coin2, amount: skill.amt2, sin: skill.sin2 }
+  const s3 = { name: skill.type3, base: skill.base3, coin: skill.coin3, amount: skill.amt3, sin: skill.sin3 }
+
+  function showSkill(s) {
+    return `
+      <div>
+        <p>Base: ${s.base}</p>
+        <p>Coin: ${s.coin} x${s.amount}</p>
+        <button class="skill-btn ${s.sin}" onclick="calculate(${s.base}, ${s.coin}, ${s.amount})">${s.name}</button>
+      </div>
+    `
+  }
+
+  div.innerHTML = showSkill(s1) + showSkill(s2) + showSkill(s3)
+}
+</script>

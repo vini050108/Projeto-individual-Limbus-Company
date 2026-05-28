@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./dashboard.css">
+</head>
+
+<body>
+
+    <div class="header">
+        <div class="container">
+            <h1 class="titulo">Limbus Company</h1>
+            <ul class="navbar">
+                <li><a href="../index.html">Inicial</a></li>
+                <li><a href="./dash.html">Simulador</a></li>
+                <li>|</li>
+                <li id="nav-login"><a href="../login.html">Login</a></li>
+                <li id="nav-cadastro"><a href="../cadastro.html">Cadastro</a></li>
+                <li id="nav-usuario" style="display:none">
+                    <span id="nav-nome"></span>
+                    <button onclick="sair()">Sair</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="quiz-container">
+            <h1>The trial</h1>
+            <hr>
+            <p class="dialogue">"Cada dedo da Família tem seu próprio jeito de sobreviver nessa cidade. Qual deles
+                reconhece você como seu?"</p>
+            <hr>
+
+            <div id="quiz-body"></div>
+
+            <button id="submit-btn" onclick="showResult()">Ver resultado</button>
+
+            <div id="result-box">
+                <h2 id="result-finger"></h2>
+                <p id="result-text"></p>
+            </div>
+
+            <button id="restart-btn" onclick="restart()">Tentar novamente</button>
+        </div>
+    </div>
+
+    <script src="../js/sessao.js"></script>
+    <script>
+        checkSession()
+
+        const quiz = {
+            "title": "Which Finger Would Claim You?", "questions": [{
+                "question": "Em um trabalho em grupo, qual é sua maior força?", "options": [{
+                    "text": "Minha capacidade de manipular informações.", "finger": "Pinky"
+                }, {
+                    "text": "Minha lealdade absoluta ao meu grupo.", "finger": "Middle"
+                }, {
+                    "text": "Minha força de vontade e presença.", "finger": "Thumb"
+                }, {
+                    "text": "Minha imprevisibilidade e adaptação.", "finger": "Ring"
+                }, { "text": "Minha devoção absoluta a regras e ordens.", "finger": "Index" }]
+            }, {
+                "question": "O que mais importa para você?", "options": [{
+                    "text": "Conhecimento e controle.", "finger": "Pinky"
+                }, {
+                    "text": "Família e pertencimento.", "finger": "Middle"
+                }, {
+                    "text": "Respeito e autoridade.", "finger": "Thumb"
+                }, {
+                    "text": "Liberdade acima de tudo.", "finger": "Ring"
+                }, {
+                    "text": "Seguir o caminho que me foi dado.", "finger": "Index"
+                }]
+            }, {
+                "question": "Como você lida com traição?", "options": [{ "text": "Transformo isso em vantagem.", "finger": "Pinky" }, {
+                    "text": "Nunca perdoo quem trai a família.", "finger": "Middle"
+                }, {
+                    "text": "Resolvo diretamente, sem hesitação.", "finger": "Thumb"
+                }, {
+                    "text": "Dou risada e sigo em frente.", "finger": "Ring"
+                }, {
+                    "text": "Aceito como parte inevitável do destino.", "finger": "Index"
+                }]
+            }, {
+                "question": "Qual ambiente combina mais com você?", "options": [{
+                    "text": "Uma sala silenciosa cheia de planos secretos.", "finger": "Pinky"
+                }, {
+                    "text": "Um jantar caótico cercado pela família.", "finger": "Middle"
+                }, {
+                    "text": "Uma arena onde todos conhecem meu nome.", "finger": "Thumb"
+                }, {
+                    "text": "As ruas da Cidade, sem rumo definido.", "finger": "Ring"
+                }, {
+                    "text": "Um lugar guiado por regras absolutas.", "finger": "Index"
+                }]
+            }, {
+                "question": "O que define poder para você?", "options": [{ "text": "Informação.", "finger": "Pinky" }, {
+                    "text": "Conexões.", "finger": "Middle"
+                }, { "text": "Dominação.", "finger": "Thumb" }, {
+                    "text": "Sobreviver de qualquer jeito.", "finger": "Ring"
+                }, {
+                    "text": "Propósito e obediência.", "finger": "Index"
+
+                }]
+            }], "results": { "Thumb": "Você pertence ao Thumb. Autoridade, hierarquia e respeito definem sua existência.", "Index": "Você pertence ao Index. Você segue convicções absolutas mesmo sem compreender tudo.", "Middle": "Você pertence ao Middle. Família, lealdade e vingança movem cada uma de suas ações.", "Ring": "Você pertence ao Ring. Você transforma caos, emoção e sofrimento em expressão.", "Pinky": "Você pertence ao Pinky. Informação e manipulação são suas verdadeiras armas." }
+        }
+
+        const scores = { Thumb: 0, Index: 0, Middle: 0, Ring: 0, Pinky: 0 }
+        const answers = {}
+
+        function buildQuiz() {
+            const body = document.getElementById('quiz-body')
+            body.innerHTML = ''
+
+            quiz.questions.forEach((q, qIndex) => {
+                const box = document.createElement('div')
+                box.className = 'question-box'
+                box.innerHTML = `<p class="progress">Pergunta ${qIndex + 1} de ${quiz.questions.length}</p><h3>${q.question}</h3><div class="options" id="options-${qIndex}"></div>`
+                body.appendChild(box)
+
+                q.options.forEach((opt, oIndex) => {
+                    const btn = document.createElement('button')
+                    btn.className = 'option-btn'
+                    btn.innerHTML = opt.text
+                    btn.onclick = () => selectOption(qIndex, oIndex, btn)
+                    document.getElementById(`options-${qIndex}`).appendChild(btn)
+                })
+            })
+        }
+
+        function selectOption(questionIndex, optionIndex, btn) {
+            const allBtns = document.querySelectorAll(`#options-${questionIndex} .option-btn`)
+            allBtns.forEach(b => b.classList.remove('selected'))
+            btn.classList.add('selected')
+            answers[questionIndex] = optionIndex
+        }
+
+        function showResult() {
+            if (Object.keys(answers).length < quiz.questions.length) {
+                alert('Responda todas as perguntas antes de continuar!')
+                return
+            }
+
+            for (let finger in scores) scores[finger] = 0
+
+            for (let qIndex in answers) {
+                const selected = quiz.questions[qIndex].options[answers[qIndex]]
+                scores[selected.finger]++
+            }
+
+            let highest = ''
+            let highestScore = 0
+            for (let finger in scores) {
+                if (scores[finger] > highestScore) {
+                    highestScore = scores[finger]
+                    highest = finger
+                }
+            }
+
+            document.getElementById('result-finger').innerHTML = highest
+            document.getElementById('result-text').innerHTML = quiz.results[highest]
+            document.getElementById('result-box').style.display = 'block'
+            document.getElementById('submit-btn').style.display = 'none'
+            document.getElementById('restart-btn').style.display = 'inline-block'
+        }
+
+        function restart() {
+            for (let finger in scores) scores[finger] = 0
+            for (let key in answers) delete answers[key]
+            document.getElementById('result-box').style.display = 'none'
+            document.getElementById('submit-btn').style.display = 'inline-block'
+            document.getElementById('restart-btn').style.display = 'none'
+            buildQuiz()
+        }
+
+        buildQuiz()
+    </script>
+
+</body>
+
+</html>

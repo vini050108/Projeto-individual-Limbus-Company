@@ -290,3 +290,12 @@ body::-webkit-scrollbar {
     height: 2px;
     background: var(--primary-red);
 }
+
+#nav-usuario button {
+    background: none;
+    border: none;
+    color: inherit;
+    font: inherit;
+    cursor: pointer;
+    padding: 0;
+}

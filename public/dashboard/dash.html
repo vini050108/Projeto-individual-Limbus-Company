@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="./dashboard.css">
+  <link rel="shortcut icon" href="../imgs/main-sinners/Yi_sang/Yi_Sang_Icon.png" type="image/x-icon">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+<div class="header">
+    <div class="container">
+      <h1 class="titulo">Limbus Company</h1>
+      <ul class="navbar">
+        <li><a href="../index.html">Inicial</a></li>
+        <li><a href="./dash.html">Simulador</a></li>
+        <li>|</li>
+        <li id="nav-login"><a href="../login.html">Login</a></li>
+        <li id="nav-cadastro"><a href="../cadastro.html">Cadastro</a></li>
+        <li id="nav-usuario" style="display:none">
+          <span id="nav-nome"></span>
+          <button onclick="sair()">Sair</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+      <script src="../js/sessao.js"></script>
+    <script>checkSession()</script>
+  <div class="container">
+
+      <div class="main">
+        
+        <h1>Minhas IDs</h1>
+
+
+        <h2>Sobre</h2>
+        <p>Essa é uma pagina simples com a intenção de vizualizar quantas Ids de cada sinner você possui</p>
+        <p>Clique abaixo para escolher um sinner, e então, ver as Ids que estão prontas para serem cadastradas a sua conta</p>
+        <h2></h2>
+
+        <select class="sinner" id="sinner-select">
+  <option class="sinner" value="">Selecione um sinner</option>
+  <option class="sinner" value="1">Yi Sang</option>
+  <option class="sinner" value="2">Faust</option>
+  <option class="sinner" value="3">Don Quixote</option>
+  <option class="sinner" value="4">Ryoshu</option>
+  <option class="sinner" value="5">Meursault</option>
+  <option class="sinner" value="6">Hong Lu</option>
+  <option class="sinner" value="7">Heathcliff</option>
+  <option class="sinner" value="8">Ishmael</option>
+  <option class="sinner" value="9">Rodion</option>
+  <option class="sinner" value="10">Sinclair</option>
+  <option class="sinner" value="11">Outis</option>
+  <option class="sinner" value="12">Gregor</option>
+
+</select>
+
+<select id="identity-select" disabled>
+  <option value="">Selecione uma identidade</option>
+</select>
+<button onclick="registerId()">Cadastrar</button> <span id="placeholder"></span>
+
+<div class="graphContainer">
+<canvas id="grafico"></canvas>
+</div>
+<div id="kpi">
+<p>Sinner com mais IDs: <strong id="kpi-nome" class="kpi-sinner">-</strong> (<span id="kpi-total">0</span> IDs)</p>
+</div>
+
+<h1 class="plc">Mas oque fazer com essas IDs?
+<h3 class="plc">Está Pronto(a) para a The big brother's trial?</h3>
+<a href="./bb.html"><button class="bb">BIG BROTHER's TRIAL</button></a>
+<hr>
+<h3 class="plc">Venha testar o quiz também!</h3>
+<a href="./quiz.html"><button class="bb">Finger's trial</button></a>
+      </div>
+
+    </div>
+</body>
+
+
+
+</html>
+<script>
+if (!sessionStorage.NOME_USUARIO) {
+  window.location = '../login.html'
+}
+
+
+
+  document.getElementById('sinner-select').addEventListener('change', async function () {
+  const sinnerId = this.value
+
+  const data = await fetch(`/api/identities/${sinnerId}`).then(r => r.json())
+
+  const identitySelect = document.getElementById('identity-select')
+  identitySelect.innerHTML = '<option value="">Selecione uma identidade</option>'
+
+  data.forEach(item => {
+    identitySelect.innerHTML += `<option value="${item.identity_id}">${item.name}</option>`
+  })
+
+  identitySelect.disabled = false
+})
+
+function registerId() {
+  const identity_id = document.getElementById('identity-select').value
+
+  if (!identity_id) {
+    document.getElementById('placeholder').innerHTML = 'Selecione uma identidade!'
+    return
+  }
+
+  fetch('/api/usuario-identity', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      usuario_id: sessionStorage.ID_USUARIO,
+      identity_id: identity_id
+    })
+  }).then(res => {
+    if (res.ok) {
+      document.getElementById('placeholder').innerHTML = 'Identidade cadastrada com sucesso!'
+      loadGraph()
+    } else if (res.status === 409) {
+      document.getElementById('placeholder').innerHTML = 'Você já possui essa identidade!'
+    } else {
+      document.getElementById('placeholder').innerHTML = 'Erro ao cadastrar identidade.'
+    }
+  })
+}
+
+let chartInstance = null
+
+async function loadGraph() {
+  const usuario_id = sessionStorage.ID_USUARIO
+  const chartData = await fetch(`/api/usuario-identity/${usuario_id}`).then(r => r.json())
+
+  const labels = ["Yi Sang", "Faust", "Don Quixote", "Ryōshū", "Meursault", "Hong Lu", "Heathcliff", "Ishmael", "Rodion", "Sinclair", "Outis", "Gregor"]
+
+  const cores = ["#d4dfe8", "#ffbfb4", "#FFEF23", "#cf0000", "#293b95", "#5BFFDE", "#4e3076", "#ff9500", "#820000", "#8b9c15", "#325339", "#69350b"]
+
+  const valores = new Array(12).fill(0)
+  chartData.forEach(dado => {
+    const index = labels.indexOf(dado.name)
+    if (index !== -1) valores[index] = dado.total
+  })
+
+  if (chartInstance) {
+    chartInstance.data.datasets[0].data = valores
+    chartInstance.update()
+  } else {
+    chartInstance = new Chart(document.getElementById('grafico'), {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Identidades por Sinner',
+          data: valores,
+          backgroundColor: cores,
+          borderColor: cores,
+          borderWidth: 1,
+          barThickness: 38
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: { legend: { display: false } },
+        scales: { y: { beginAtZero: true } }
+      }
+    })
+  }
+
+  const highestTotal = Math.max(...valores)
+const highestIndex = valores.indexOf(highestTotal)
+const sinnerNames = ["YiSang", "Faust", "DonQuixote", "Ryoshu", "Meursault", "HongLu", "Heathcliff", "Ishmael", "Rodion", "Sinclair", "Outis", "Gregor"]
+
+const kpiNome = document.getElementById('kpi-nome')
+kpiNome.innerHTML = labels[highestIndex]
+kpiNome.className = `kpi-sinner ${sinnerNames[highestIndex]}`
+document.getElementById('kpi-total').innerHTML = highestTotal
+}
+loadGraph()
+</script>
