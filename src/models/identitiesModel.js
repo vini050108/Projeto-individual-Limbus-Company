@@ -38,5 +38,3 @@ function buscarSkills(identity_id) {
   const instrucaoSql = `SELECT * FROM skills WHERE identity_id = ${identity_id}`
   return database.executar(instrucaoSql)
 }
-
-mo
